@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='muscle.png') }}"
+      type="image/x-icon"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200..900&display=swap"
+    />
+    <style>
+      body {
+        background-color: #f0f0f0;
+        background-image: url("{{ url_for('static', filename='gym.jpg') }}");
+        background-size: 100% 250%;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+
+      #title {
+        text-align: center;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        font-size: 50px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: white;
+      }
+    </style>
+    <title>Food Recommendation</title>
+  </head>
+  <body>
+    <br />
+    <br />
+    <br />
+    <h1 class="title" id="title">Food Recommendation</h1>
+    <div class="container">
+      {% if bmr %}
+      <p>Your BMR: {{ bmr }}</p>
+      {% endif %} {% if recommended_food %}
+      <p>Your recommended food:</p>
+      <ul>
+        {% for meal, food in recommended_food.items() %}
+        <li><strong>{{ meal }}:</strong> {{ food }}</li>
+        {% endfor %}
+      </ul>
+      <p>Total Calories: {{ calories }}</p>
+      <p>Total Protein: {{ protein }}</p>
+      {% else %}
+      <p>Sorry, no recommendation available.</p>
+      {% endif %}
+      <p>
+        NB : semua makanan dalam ukuran 100 gram, terkecuali WheyProtein ukuran
+        1 scoop.
+      </p>
+      <button
+        class="btn btn-primary"
+        type="button"
+        id="refresh"
+        onclick="refreshPage()"
+      >
+        Cari Kombinasi Lain
+      </button>
+      <button
+        class="btn btn-outline-primary"
+        type="button"
+        id="refresh"
+        onclick="goBack()"
+      >
+        Kembali Ke Halaman Utama
+      </button>
+    </div>
+    <script>
+      function refreshPage() {
+        location.reload();
+      }
+
+      // Fungsi untuk kembali ke halaman sebelumnya
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>
